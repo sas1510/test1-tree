@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Sofia+Sans+Semi+Condensed:wght@500&display=swap');
+
+body {
+    display: flex;
+    flex-direction: column;
+    height:100vh;
+    margin: 0;
+    padding: 0;
+}
+
+h3 {
+    font-size: 1.5em !important;
+}
+.documents {
+    overflow-y: overlay;
+}
+
+.document {
+    position: relative;
+    display: inline-block;
+    margin: 10px;
+    padding: 10px;
+    box-shadow: 5px 5px 5px #c0c0c0;
+    float: left;
+    border: 1px dotted #c0c0c0;
+}
+
+.document:hover {
+    box-shadow: 2px 2px 5px #c0c0c0;
+    transition: all 0.1s ease-out;
+}
+
+.document ul li b {
+    color: #909090;
+}
+
+.dropdown-menu {
+    padding: 10px !important;
+}
+
+.dropdown-item {
+    text-decoration: none; color: #f0f0f0;
+}
+
+.terminal {
+    background-color: black;
+    padding: 30px;
+    color: greenyellow;
+    font: 1em "Sofia Sans Semi Condensed", sans-serif;
+    box-shadow: 2px -1px 7px black;
+    overflow: overlay;
+}
+.terminal p {
+    margin: 0;
+    padding: 0;
+}
+
+.bt-btn-search {
+    width: auto;
+    margin: 0 10px;
+}
+
+.bt-btn-download {
+    width: 350px;
+    margin: 0 10px;
+}
+
+.bt-field {
+    width: 250px !important;
+}
+
+.bt-upload {
+    width: 350px !important;
+}
