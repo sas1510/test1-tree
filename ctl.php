@@ -24,22 +24,17 @@ $content =[];
 
 $data = [];
 
-file_put_contents($_SERVER['DOCUMENT_ROOT'].'/tree/log/post.arr', print_r($_POST,1));
 
 if (isset($_POST['json'])) {
-
     $requestData = json_decode($_POST['json'], true);
-    file_put_contents($_SERVER['DOCUMENT_ROOT'] . '/tree/log/request_data.arr', print_r($requestData, 1));
     if (isset($requestData['value']) && isset($requestData['field']) && isset($requestData['type'])) {
         if ($requestData['type'] === 'regular') {
             $success = 'Поиск перебором значения ';
             if (file_exists($path . $baseName)) {
                 $content = json_decode(file_get_contents($dataFileName), true);
-                file_put_contents($_SERVER['DOCUMENT_ROOT'] . '/tree/log/content.arr', print_r($content, 1));
                 foreach (search($content, $requestData['field'], $requestData['value']) as $key => $value) {
                     $request[intval($value)] = $content[intval($value)];
-                };
-                //$searchResultFieldsList = getFieldsList($content);
+                }
                 $compcount = $GLOBALS['comparisonCount'];
                 $error = '';
             } else {
@@ -51,18 +46,16 @@ if (isset($_POST['json'])) {
                 $content = json_decode(file_get_contents($dataFileName), true);
                 buildBinaryTree($Tree, $content, $requestData['field']);
                 $Tree->saveToFile($_SERVER['DOCUMENT_ROOT'] . '/tree/index/' . $requestData['field'] . '.index.obj');
-                $success = $success.'</br>Создан идексный фаил с именем '.$requestData['field'].'.index.obj <a href="/tree/index/' . $requestData['field'] . '.index.obj " target="_blanc"> <ЗАГРУЗИТЬ> </a>';
+                $success .= '</br>Создан идексный фаил с именем '.$requestData['field'].'.index.obj <a href="/tree/index/' . $requestData['field'] . '.index.obj " target="_blanc"> <ЗАГРУЗИТЬ> </a>';
                 foreach ($Tree->find($requestData['value']) as $key => $value) {
                     $request[intval($value)] = $content[intval($value)];
                 }
-                //$searchResultFieldsList = getFieldsList($content);
                 $compcount = $GLOBALS['BTcomparisonCount'];
                 $error = '';
 
             } else {
                 $error = 'Загрузите сначала фаил';
             }
-
         } else if ($requestData['type'] === 'all') {
             $success = 'Показать все документы';
             if (file_exists($path . $baseName)) {
@@ -78,7 +71,7 @@ if (isset($_POST['json'])) {
             $error = 'Неверный запрос';
         }
     }
-    //$compcount = '10';
+
 } else if (isset($_FILES[$input_name])) {
     $file = $_FILES[$input_name];
 
@@ -125,21 +118,12 @@ if (!empty($error)) {
     $error = '<p style="color: red">' . $error . '</p>';
 }
 
-/*if ($dataFileName <> '') {
-    $content = json_decode(file_get_contents($dataFileName),true);
-    $searchResultFieldsList = getFieldsList($content);
-    $request = $content;
-
-}*/
-
 $data['error'] = $error;
 $data['success'] = $success;
 $data['data'] ['request'] = $request;
 $data['data'] ['fieldslist'] = $searchResultFieldsList;
 $data['data'] ['compcount'] = $compcount;
 
-file_put_contents($_SERVER['DOCUMENT_ROOT'].'/tree/log/data.arr', print_r($data,1));
 header('Content-Type: application/json');
 echo json_encode($data, JSON_UNESCAPED_UNICODE);
-//file_put_contents($_SERVER['DOCUMENT_ROOT'].'/tree/log/data.arr', print_r(json_encode($data, JSON_UNESCAPED_UNICODE),1));
 exit();

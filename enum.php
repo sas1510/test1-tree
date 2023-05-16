@@ -4,7 +4,7 @@
     function getFieldsListRecurcive ($sorce) {
         $result = array();
         foreach ($sorce as $key => $value) {
-            if (gettype($value) <> 'array') {
+            if (gettype($value) !== 'array') {
                 $result[] = strval($key);
             } else {
                 $result[] = strval($key);
@@ -17,7 +17,7 @@
 // выбирает все поля документа сливая их в единый массив без дубликатов (исхожу из того, что документы могут иметь не одинаковую структуру)
     function getFieldsList ($sorce) {
         $result = array();
-        foreach ($sorce as $key => $value) {
+        foreach ($sorce as $value) {
             foreach (getFieldsListRecurcive($value) as $_value) {
                 if (!in_array( $_value, $result)) {
                     $result[] = $_value;

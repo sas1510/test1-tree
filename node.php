@@ -30,7 +30,7 @@
         //$result['field'] = $field;
         foreach ($sorce as $key => $value) {
             $_value = selectValueByField($value, $field);
-            if ($_value <> '') {
+            if ($_value !== '') {
                 $result['values'][$key] = $_value;
             }
         }
@@ -72,30 +72,24 @@
             if ($this->value > $dataValue) {
                 $GLOBALS['BTcomparisonCount']++;
                 if ($this->left !== null) {
-
                     return $this->left->findNode($dataValue);
                 }
-
             } else if ($this->value < $dataValue) {
                 $GLOBALS['BTcomparisonCount']++;
                 if ($this->right !== null) {
-
                     return $this->right->findNode($dataValue);
                 }
-
             } else {
                 $GLOBALS['BTcomparisonCount']++;
                 return $this->index;
             }
         }
-
     }
 
 //класс самого дерева
     class BinaryTree
     {
         protected $root;                        // корневая нода
-
         public function __construct() {
             $this->root = null;
         }
@@ -151,15 +145,11 @@
             if (!$this->isEmpty()) {
                 file_put_contents($fileName, serialize($this->root));
             }
-
         }
 
         public function loadFromFile($fileName) {
-
         }
 
         public function balance() {
-
         }
-
     }
